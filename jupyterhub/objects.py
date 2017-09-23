@@ -29,6 +29,7 @@ class Server(HasTraits):
     ip = Unicode()
     connect_ip = Unicode()
     connect_port = Integer()
+    connect_url = Unicode()
     proto = Unicode('http')
     port = Integer()
     base_url = URLPrefix('/')
@@ -107,6 +108,8 @@ class Server(HasTraits):
 
     @property
     def host(self):
+        if self.connect_url:
+            return self.connect_url
         return "{proto}://{ip}:{port}".format(
             proto=self.proto,
             ip=self._connect_ip,
@@ -127,6 +130,8 @@ class Server(HasTraits):
         Never used in APIs, only logging,
         since it can be non-connectable value, such as '', meaning all interfaces.
         """
+        if self.connect_url:
+            return self.connect_url
         if self.ip in {'', '0.0.0.0'}:
             return self.url.replace(self._connect_ip, self.ip or '*', 1)
         return self.url
