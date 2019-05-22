@@ -179,7 +179,7 @@ class FormSpawner(MockSpawner):
 class FalsyCallableFormSpawner(FormSpawner):
     """A spawner that has a callable options form defined returning a falsy value"""
 
-    options_form = lambda a, b: ""
+    options_form = lambda self: ""
 
 
 class MockStructGroup:
